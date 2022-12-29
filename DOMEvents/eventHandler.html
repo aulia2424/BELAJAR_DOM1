@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #container {
+        width: 200px;
+        height: 200px;
+        background: lightblue;
+        position: relative;
+        border-radius: 30px;
+        margin-bottom: 20px;
+      }
+      #box {
+        width: 50px;
+        height: 50px;
+        background: pink;
+        position: absolute;
+        border-radius: 50%;
+      }
+
+      #demo {
+        width: 100px;
+        height: 35px;
+        font-family: sans-serif;
+        color: white;
+        background-color: lightblue;
+        border: none;
+      }
+      #button {
+        width: 100px;
+        height: 35px;
+        font-family: sans-serif;
+        color: white;
+        background-color: pink;
+        border: none;
+      }
+      p {
+        font-size: 30px;
+        font-weight: 300;
+        font-family: sans-serif;
+        color: pink;
+      }
+      span {
+        font-size: 30px;
+        font-weight: 300;
+        font-family: sans-serif;
+        color: lightblue;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div id="box"></div>
+    </div>
+    <button id="demo">tanggal</button>
+    <button onclick="show()" id="button">Click Me</button>
+
+    <hr />
+    <p>Masukan <span>Nama</span></p>
+    <input type="text" id="name" onchange="change()" />
+    <script>
+      function show() {
+        alert(" halo aul");
+      }
+      var x = document.getElementById("demo");
+      x.onclick = function () {
+        document.body.innerHTML = "<h1 style='color='pink'>" + Date() + "</h1>";
+      };
+
+      function change() {
+        var a = document.getElementById("name");
+        a.value = a.value.toUpperCase(); // toUpperCase() untuk merubah huruf menjadi uppercase
+      }
+      // bubling di kerjakan yang paling dalamnya dulu
+      // capturing jadi yang di handle duluan yang terluar
+    </script>
+  </body>
+</html>

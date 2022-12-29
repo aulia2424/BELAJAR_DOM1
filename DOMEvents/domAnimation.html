@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      @keyframes rotate {
+        0%,
+        50% {
+          /* Keep the element at 12 o'clock until halfway through animation. */
+          transform: rotate(0deg) translateY(-150px) rotate(0deg);
+        }
+      }
+      #centre {
+        /* Position circles in the centre of the viewport. */
+        position: fixed;
+        left: 50%;
+        top: 50%;
+
+        /* IE 10 bug: force hardware acceleration to prevent edge pixels
+       being left behind on animation. */
+        transform: rotateZ(0.01deg);
+      }
+      .circle {
+        background: red;
+        border-radius: 50%;
+        position: absolute;
+      }
+
+      .middle {
+        height: 200px;
+        width: 200px;
+        left: -100px; /* top/left equal to radius. */
+        top: -100px;
+      }
+      .outer {
+        /* Note: first half of animation duration is spent at 12 o'clock. */
+        animation: rotate 2s ease-out 1;
+        height: 60px;
+        width: 60px;
+        left: -30px; /* top/left equal to radius. */
+        top: -30px;
+      }
+      .at-8-oclock {
+        /* Two rotate transforms are used to maintain orientation while turning.
+       First rotate is angle about centre from top; second is just minus this.
+       translateY is set to the radius of the circular path being followed. */
+        transform: rotate(-120deg) translateY(-150px) rotate(120deg);
+      }
+
+      .at-10-oclock {
+        transform: rotate(-60deg) translateY(-150px) rotate(60deg);
+      }
+      .at-12-oclock {
+        transform: rotate(0deg) translateY(-150px) rotate(0deg);
+        z-index: 2; /* This one stays on top. */
+      }
+
+      .at-2-oclock {
+        transform: rotate(60deg) translateY(-150px) rotate(-60deg);
+        z-index: 1; /* Make this slide out from between 12 and 4 o'clock. */
+      }
+
+      .at-4-oclock {
+        transform: rotate(120deg) translateY(-150px) rotate(-120deg);
+      }
+      .at-1-oclock {
+        transform: rotate(120deg) translateY(-150px) rotate(-120deg);
+      }
+
+      #container {
+        width: 200px;
+        height: 200px;
+        background: green;
+        position: relative;
+        border-radius: 30px;
+      }
+      #box {
+        width: 50px;
+        height: 50px;
+        background: red;
+        position: absolute;
+        border-radius: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- lesson 49 -->
+    <div id="centre">
+      <div class="middle circle"></div>
+      <div class="outer circle at-8-oclock"></div>
+      <div class="outer circle at-10-oclock"></div>
+      <div class="outer circle at-12-oclock"></div>
+      <div class="outer circle at-2-oclock"></div>
+      <div class="outer circle at-4-oclock"></div>
+      <div class="outer circle at-1-oclock"></div>
+    </div>
+
+    <div id="container">
+      <div id="box"></div>
+    </div>
+
+    <!-- end lesson 49 -->
+
+    <script>
+      // lesson 49
+      var pos = 0;
+      var posTop = 0;
+      var posBottom = 0;
+      var posLeft = 0;
+      var posRight = 0;
+      // posisi awal
+      // our box element
+      var box = document.getElementById("box"); //kita ambil box yang di dalam
+
+      function move() {
+        if (pos == 320) {
+          // jadi kalo posisinya lebih besar dari 320px maka di berhentikan fungsinya
+          clearInterval(t);
+        } else if (pos >= 320 && posTop < 320) {
+          posTop += 1;
+          box.style.top = posTop + "px";
+        } else if (pos >= 320 && posTop < 320 && posRight <= 320) {
+          posRight += 1;
+          box.style.left = pos - posRight + "px";
+        } else if (pos >= 320 && posRight < 320 && posBottom <= 320) {
+          posBottom += 1;
+          box.style.bottom = posTop - posBottom + "px";
+        }
+      }
+      setTimeout(function () {
+        box.style.backgroundColor = "blue";
+        box.style.color = "white";
+      }, 500);
+      // end lesson 49
+
+      // animasi sederhana
+      function loop() {
+        /// calc x and y position with radius of center +
+        x = cx + radius * Math.cos((angle * Math.PI) / 180);
+        y = cy + radius * Math.sin((angle * Math.PI) / 180);
+
+        /// set satelite's center to that position
+        $("#sat1").css({ left: x - radiusSat, top: y - radiusSat });
+
+        /// increase angle
+        angle++;
+        if (angle > 360) angle = 0;
+
+        /// loop
+        requestAnimationFrame(loop);
+      }
+      // end animasi sederhana
+    </script>
+  </body>
+</html>
